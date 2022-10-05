@@ -32,10 +32,10 @@ ip.KeepUnmatched = true;
 ip.StructExpand = true;
 
 % KJ: Parameters with default value - user has chance to change
-ip.addParameter('pixelSize_', 90, @isnumeric);
-ip.addParameter('timeInterval_', 0.1, @isnumeric);
+ip.addParameter('pixelSize_', 94, @isnumeric);
+ip.addParameter('timeInterval_', 0.086, @isnumeric);
 ip.addParameter('numAperture_', 1.49, @isnumeric);
-ip.addParameter('exposureTime_', 0.1, @isnumeric);
+ip.addParameter('exposureTime_', 0.05, @isnumeric);
 ip.addParameter('imageType_', {'TIRF'}, @(x) ischar(x) || iscellstr(x));
 
 % Parameters obtained by user input
@@ -119,7 +119,11 @@ if(isempty(param.fileName) || isempty(param.filePath))
     [param.fileName, param.filePath] = uigetfile( ...
         {'*.tif','*.ome.tiff','*488.ome.tiff','*561.ome.tiff','*640.ome.tiff'}', ...
         'Select Movies', 'MultiSelect', 'on');
+if isequal(param.fileName,0)
+   disp('User selected Cancel');
 end
+end
+
 if(~iscellstr(param.fileName))
     param.fileName = {param.fileName};
 end
@@ -132,7 +136,7 @@ end
 
 %% Relative time zero selection2
 if(isempty(param.relTimeZero2))
-    [param.relTimeZero2, param.addTZ2, param.zeroSelect2] = timeCourseAnalysis.relativeTimeZeroSelection('Enter VEGF addition time',{'none'},param);
+    [param.relTimeZero2, param.addTZ2, param.zeroSelect2] = timeCourseAnalysis.relativeTimeZeroSelection('Enter treatment addition time',{'none'},param);
 end
 
 try
