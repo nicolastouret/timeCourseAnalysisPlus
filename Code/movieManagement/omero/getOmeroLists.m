@@ -57,7 +57,7 @@ if isempty(datasets), return; end
 nLists = numel(datasets);
 ML(nLists) = MovieList();
 
-% Make sure the target directory existis
+% Make sure the target directory exists
 if ~isdir(ip.Results.path), mkdir(ip.Results.path); end
 
 % Set temporary file to extract file annotations
